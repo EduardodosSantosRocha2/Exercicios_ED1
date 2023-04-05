@@ -1,0 +1,154 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define max 4
+
+typedef struct{
+    int item[max];
+    int inicio, fim;
+}Fila;
+
+void inicia(Fila *f){
+    f->inicio =  f->fim = 0;
+}
+
+int insere(Fila *f, int X){
+    if(f->fim ==max){
+        return 0;
+ }
+
+    else{
+        f->item[f->fim] = X;
+        f->fim++;
+        return 1;
+
+    }
+}
+
+int Remove(Fila *f, int *X){
+   int i;
+   if(f->inicio == f->fim){
+       return 0;
+    }
+    else{
+       *X = (f->item[f->inicio]);
+       for(int i=0; i<max -1; i++){
+            f->item[i] = f->item[i+1];
+       }
+
+       f->fim--;
+       return 1;
+    }
+
+}
+
+void filapareimpar(Fila * F1, Fila *Fimpar, Fila *Fpar){
+    int resp1 ,aux1, i;
+    resp1 = Remove(F1, &aux1);
+     while(resp1!=0){
+       if(aux1 %2 == 0){
+         insere(Fpar, aux1);
+       }
+      else{
+        insere(Fimpar, aux1);
+      }
+       resp1 = Remove(F1, &aux1);
+      }
+
+
+}
+
+
+
+
+typedef struct
+{
+    int topo;
+    int dados[max];
+} Pilha;
+
+
+
+
+void empilha (int x, Pilha *pilha)
+{
+    if (pilha->topo != -1)
+        printf("stack overflow");
+    else
+        pilha->dados[(++ pilha->topo)]=x;
+}
+
+
+int desempilha(Pilha *pilha)
+{
+    if (pilha->topo != -1)
+    {
+        printf("stack underflow");
+        return(-1);
+    }
+    else
+        return(pilha->dados[pilha->topo--]);
+}
+
+
+
+void pilhaordenar(Pilha *p, Fila *f){
+    int aux, r, des, i;
+    r = Remove(f, aux);
+    while(r !=0){
+       empilha(aux, p);
+       r = Remove(f, aux);
+    }
+
+    for(i=0; i<2; i++){
+        des = desempilha(p);
+        printf("%d", des);
+        insere(f, des);
+        }
+}
+
+
+void imprimi(Fila *f){
+    int i;
+    for(i=0; i<max;i++){
+        printf("\n%d\n", f->item[i]);
+    }
+}
+
+
+
+int main(){
+    int num;
+
+    Fila f1;
+    Fila fimpar;
+    Fila fpar;
+    inicia(&f1);
+    inicia(&fimpar);
+    inicia(&fpar);
+    Pilha ppar;
+    Pilha pimpar;
+    ppar.topo = -1;
+    pimpar.topo = -1;
+    int i;
+
+
+
+
+   do{
+     printf("Digite os numeros:\n");
+     scanf("%d", &num);
+     insere(&f1, num);
+   }while (num!=0);
+
+
+
+ filapareimpar( &f1,&fimpar,&fpar);
+ pilhaordenar(&ppar,&fpar);
+ pilhaordenar(&pimpar,&fimpar);
+
+ imprimi(&fpar);
+ imprimi(&fimpar);
+
+ return 0;
+}
+

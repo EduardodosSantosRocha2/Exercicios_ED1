@@ -1,0 +1,67 @@
+public class Ex1 {
+    //Atributos
+    private String cpf;
+    private String nome;
+    private String telefone;
+    private String senha;
+    private String usuario;
+    
+    public Ex1 (String cpf, String nome , String telefone ){
+        this.cpf  = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.senha = cpf;
+        this.usuario = nome;
+    } 
+    public Ex1 (String cpf , String nome , String telefone, String email){ 
+        this.cpf  = cpf;
+        this.nome = nome;
+        this.telefone = telefone;  
+        int achou = email.indexOf('@', 1);
+        int achouopontocom = email.indexOf(".com", achou+1);
+        
+        if(achou != -1 && achouopontocom!= -1){
+            this.usuario = email;
+        }
+        else{
+            this.senha = cpf;
+            this.usuario = nome;
+        }
+    }
+    
+    public Ex1 (String cpf , String nome , String telefone, String email, String senha){
+        this.cpf  = cpf;
+        this.nome = nome;
+        this.telefone = telefone; 
+        
+        
+        
+        
+        int achou = email.indexOf('@', 1);
+        int achouopontocom = email.indexOf(".com", achou+1);
+        
+        if(achou != -1 && achouopontocom!= -1){
+            this.usuario = email;
+        }
+        else{
+            this.usuario = nome;           
+        }
+        if(senha.length()<6){
+            this.senha = cpf;
+        }
+    
+    }
+    
+    
+    
+    
+    
+    
+    public void Mostrar(){
+        System.out.printf("%s\n%s\n%s\n%s\n%s\n",cpf, nome, telefone, usuario, senha);
+    }
+    
+    
+
+
+}

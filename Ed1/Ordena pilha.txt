@@ -1,0 +1,77 @@
+typedef struct
+{
+    int topo;
+    int dados[10];
+} pilha;
+
+void empilha (int x, pilha *P)
+{
+    if (P->topo == 9)                   /* pilha cheia */
+        printf("stack overflow");
+    else
+        P->dados[(++ P->topo)]=x;
+}
+
+int desempilha(pilha *P)
+{
+    if (P->topo == -1)                  /* pilha vazia */
+    {
+        printf("stack underflow");
+        return(-1);
+    }
+    else
+        return(P->dados[P->topo--]);
+}
+
+void ordenar(int N, pilha *p1){
+    int i, vet[N], j, numaux;
+    for(i=0;i<N;i++){
+        vet[i] = desempilha(p1);
+    }
+
+    for(i=0; i<N; i++)
+    {
+    for(j=i+1; j<N; j++){
+            if(vet[i]>vet[j])
+            {
+                numaux = vet[i];
+                vet[i] = vet[j];
+                vet[j] = numaux;
+            }
+
+            }
+    }
+    for(i=0; i<N; i++){
+        empilha(vet[i],p1);
+    }
+
+
+}
+int main()
+{
+   int i,N, num;
+   pilha P1;
+
+   P1.topo=-1;
+
+   printf("\n Digite a quantidade de elementos a ser inserido na pilha (Max=10): ");
+   scanf("%d",&N);
+
+   for(i=0;i<N;i++)
+   {
+     printf("\n Digite os elementos da pilha: ");
+     scanf("%d",&num);
+     empilha(num,&P1);
+   }
+   ordenar(N, &P1);
+
+   for(i=0;i<N;i++){
+    printf("%d",desempilha(&P1));
+   }
+
+
+   return 0;
+}
+
+
+

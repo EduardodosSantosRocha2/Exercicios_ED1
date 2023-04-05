@@ -1,0 +1,407 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no
+{
+    char nome[30];
+    int dados;
+    struct no *anterior;
+    struct no *proximo;
+} noptr;
+
+void insere_lista(noptr **inifunc, noptr *novo, int valor)
+{
+
+    novo->dados = valor;
+    novo->anterior = NULL;
+    if(*inifunc == NULL)
+    {
+        novo->proximo = NULL;
+    }
+    else
+    {
+        novo->proximo = *inifunc;
+        (*inifunc)->anterior = novo;
+    }
+    *inifunc = novo;
+}
+
+int remove_lista(noptr **inicio)
+{
+    noptr *p;
+    int aux;
+    p = *inicio;
+    if(*inicio==NULL){
+        printf("\nLista vazia");
+        return 0;
+
+    }else if((*inicio)->proximo == NULL){
+        aux = p->dados;
+        free(p);
+        *inicio =NULL;
+        return aux;
+    }
+    else{
+       *inicio= p->proximo;
+       (*inicio)->anterior=NULL;
+       aux = p->dados;
+       free(p);
+
+        return aux;
+    }
+}
+
+void lista_todos(noptr *inifunc)
+{
+    if(inifunc == NULL)
+    {
+        printf("\nLista vazia!!!\n");
+        return;
+    }
+    noptr *p;
+    p = inifunc;
+
+    printf("Saida:");
+    while(p)
+    {
+        printf("[%d] ", p->dados);
+        p = p->proximo;
+
+    }
+    printf("\n");
+}
+
+void listar(noptr *inifunc)
+{
+
+    noptr *aux;
+    aux = inifunc;
+
+    printf("Inicio -> ");
+    while(aux!=NULL)
+    {
+        printf("%d  " ,aux->dados);
+        aux = aux->proximo;
+
+    }
+    printf("\n");
+}
+
+
+
+
+void trocarvalor(noptr *inifunc)
+{
+    noptr *p;
+    noptr *v1;
+    noptr *v2;
+
+    p = inifunc;
+    v1 = inifunc;
+    v2 = inifunc->proximo;
+    while(p)
+    {
+        v1->dados = v2;
+        v2->dados = v1;
+        p->proximo;
+    }
+
+
+}
+
+void insere_no(noptr **inifunc, noptr *novo, int valor)
+{
+    noptr *p;
+    novo->dados = valor;
+    novo->anterior = NULL;
+    novo->proximo = NULL;
+    if(*inifunc == NULL)
+    {
+        *inifunc = novo;
+        return;
+    }
+    p = *inifunc;
+    while(p->proximo != NULL)
+    {
+        p = p->proximo;
+    }
+    p->proximo = novo;
+    novo->anterior = p;
+}
+
+void remove_final(noptr **inifunc)
+{
+    noptr *p;
+    if(*inifunc == NULL)
+    {
+        printf("Lista Vazia\n");
+        return;
+    }
+    else
+    {
+        p = *inifunc;
+        while(p->proximo!=NULL)
+        {
+            p=p->proximo;
+        }
+        printf("\nValor removido: [%d]\n", p->dados);
+
+        p->anterior->proximo = NULL;
+
+        free(p);
+    }
+
+}
+
+void lista_uniao(noptr **inifunc1, noptr **inifunc2)
+{
+    noptr *inicio3;
+    inicio3 = NULL;
+    noptr *info3;
+
+    int aux1, aux2;
+    noptr *p1;
+    noptr *p2;
+    p1 = *inifunc1;
+    p2 = *inifunc2;
+
+
+    if(*inifunc1 == NULL && *inifunc2==NULL)
+    {
+        printf("Lista Vazia\n");
+        return;
+    }
+    aux1 = remove_lista(inifunc1);
+    aux2 = remove_lista(inifunc2);
+
+
+    while(p1!=NULL && p2!=NULL)
+    {
+
+        info3 = (struct no*) malloc(sizeof(noptr));
+
+        if(aux1 < aux2)
+        {
+            insere_lista(&inicio3, info3, aux1);
+
+            //aux2 = remove_lista(inifunc2);
+
+        }
+
+
+        else
+        {
+            insere_lista(&inicio3, info3, aux2);
+
+           // aux2 = remove_lista(inifunc2);
+
+        }
+
+         p1 = p1->proximo;
+         p2 = p2->proximo;
+
+    }
+    lista_todos(inicio3);
+
+
+}
+
+void insere_ordenado(noptr **inifunc, noptr *novo, int valor)
+{
+    noptr *p;
+    novo->dados = valor;
+
+    if(*inifunc == NULL)
+    {
+        novo->anterior = NULL;
+        novo->proximo = NULL;
+        *inifunc = novo;
+        return;
+    }
+
+    else if(novo->dados < (*inifunc)->dados)
+    {
+        novo->proximo = *inifunc;
+        (*inifunc)->anterior = novo;
+        (*inifunc)->anterior = NULL;
+        *inifunc = novo;
+    }
+    else
+    {
+        p = *inifunc;
+        while(p->proximo && novo->dados > p->proximo->dados)
+        {
+            p= p->proximo;
+        }
+        novo->proximo = p->proximo;
+        if(p->proximo){
+            p->proximo->anterior = novo;
+        }
+        novo->anterior = p;
+        p->proximo = novo;
+
+    }
+
+
+
+}
+
+
+
+
+int main()
+{
+    int recebe = 1, ops, recebe1 = 1, valor;
+    noptr *inicio;
+    inicio = NULL;
+    noptr *info;
+
+    noptr *inicio2;
+    inicio2 = NULL;
+    noptr *info2;
+
+
+
+    do
+    {
+        printf("----------------------------------------------------------------------------------------------------------------\n");
+        printf("Digite\n(1)Listar 1\n(2)Trocar valores\n(3)adicionar no final da fila\n(4)Remover no do final\n(5)Insere\n(6)Insere ordenado\n(7)Listar\n(8)Lista 2\n(9)Imprimir Lista 2\n(10)Uniao\n(11)Excluir\n");
+        printf("----------------------------------------------------------------------------------------------------------------\n");
+        scanf("%d",&ops);
+        if(ops==1)
+        {
+            lista_todos(inicio);
+        }
+        if(ops==2)
+        {
+            trocarvalor(inicio);
+        }
+
+
+
+        if(ops == 3)
+        {
+            info = (struct no*) malloc(sizeof(noptr));
+            if(!info)
+            {
+                printf("\nSem Memoria!!!");
+                return;
+            }
+
+            printf("Digite um valor: ");
+            scanf("%d", &recebe);
+            insere_no(&inicio, info, recebe);
+
+
+
+        }
+        if(ops == 4)
+        {
+            remove_final(&inicio);
+        }
+
+
+        if(ops == 5)
+        {
+            recebe = 1;
+            while(recebe!=0)
+            {
+                info = (struct no*) malloc(sizeof(noptr));
+                if(!info)
+                {
+                    printf("\nSem Memoria!!!");
+                    return;
+                }
+
+                printf("Digite um valor: ");
+                scanf("%d", &recebe);
+
+
+
+                if (recebe!=0)
+                {
+                    insere_lista(&inicio,info, recebe);
+                }
+            }
+        }
+
+
+
+        if(ops == 6)
+        {
+            do{
+                info = (struct no*) malloc(sizeof(noptr));
+                if(!info)
+                {
+                    printf("\nSem Memoria!!!");
+                    return;
+                }
+
+                printf("Digite um valor: ");
+                scanf("%d", &recebe);
+
+
+
+                if (recebe!=0)
+                {
+                    insere_ordenado(&inicio,info, recebe);
+                }
+            }while(recebe!=0);
+
+        }
+        if(ops == 7){
+            listar(inicio);
+        }
+
+        if(ops==8){
+
+            printf("Digite a segunda lista: \n");
+
+             while(recebe1!=0)
+            {
+                info2 = (struct no*) malloc(sizeof(noptr));
+                if(!info2)
+                {
+                    printf("\nSem Memoria!!!");
+                    return;
+                }
+
+                printf("Digite um valor: ");
+                scanf("%d", &recebe1);
+
+
+
+                if (recebe1!=0)
+                {
+                    insere_ordenado(&inicio2,info2, recebe1);
+                }
+            }
+
+        }
+
+        if(ops == 9){
+            lista_todos(inicio2);
+        }
+
+
+
+       if(ops == 10){
+
+            lista_uniao(&inicio, &inicio2);
+        }
+
+        if(ops == 11){
+            valor  = remove_lista(&inicio);
+            printf("Valor removido: %d", valor);
+
+        }
+
+
+
+
+
+    }
+    while(ops!=0);
+
+    return 0;
+}

@@ -1,0 +1,187 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+
+typedef struct{
+    int codigo;
+    char nome[100];
+    int fone;
+}Cli;
+
+typedef struct {
+    int num;
+    float valor;
+    int DataEmissao;
+    int DataVenc;
+    int codcli;
+}Rec;
+
+
+void LerCliente(Cli *cli,int n){
+    int i;
+
+    for(i=0;i<n;i++){
+        printf("Digite o codigo do %d° cliente que deseja cadrastrar: \n",i+1);
+        scanf("%d",&cli[i].codigo);
+
+        printf("Digite o nome do %d° cliente que deseja cadrastrar: \n",i+1);
+        setbuf(stdin, NULL);
+        fgets(cli[i].nome,19, stdin);
+
+        printf("Digite o telefone do %d° cliente que deseja cadrastrar: \n",i+1);
+        scanf("%d",&cli[i].fone);
+        printf("*******************************************************\n");
+
+    }
+}
+
+void LerRecebimentos(Rec *rec, int n){
+   int i;
+   for(i = 0; i<n; i++){
+        printf("Digite o numero do recebimento do cliente: \n");
+        scanf("%d",&rec[i].num);
+
+        printf("Digite o valor do recebimento do cliente: \n");
+        scanf("%f",&rec[i].valor);
+
+        printf("Digite a data de emissao do recebimento do cliente: \n");
+        scanf("%d",&rec[i].DataEmissao);
+
+        printf("Digite a data de vencimeto do recebimento do cliente: \n");
+        scanf("%d",&rec[i].DataVenc);
+
+        printf("Digite o codigo do cliente do recebimento : \n");
+        scanf("%d",&rec[i].codcli);
+        printf("*******************************************************\n");
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+void Incluirrecebimentos(Rec *rec, Cli *cli, int n){
+
+    int i, cadastrado, contcadastrados = 0;
+    printf("Digite o codigo que deseja saber se ele está cadastrado: \n");
+    scanf("%d",&cadastrado);
+
+
+    for(i = 0; i<n; i++)
+    {
+        if(cli[i].codigo == cadastrado)
+        {
+            contcadastrados++;
+            break;
+        }
+
+        else
+        {
+            contcadastrados = 0;
+        }
+
+    }
+
+    if(contcadastrados> 0)
+    {
+        printf("Cliente já se encontra cadastrado\n");
+    }
+
+    else
+    {
+        printf("Cliente não se encontra cadastrado\n");
+        exit(0);
+    }
+}
+
+
+void Altereocadastrodeclientes(Cli *cli, int n){
+
+    int codigo, i, escolha, cod,fone;
+    char nome[100];
+    printf("Digite o codigo do cliente que deseja alterar: \n");
+    scanf("%d",&codigo);
+    printf("Digite:\n1:Alterar codigo do cliente\n2:Alterar nome do cliente\n3:Alterar o numero do cliente\n");
+    scanf("%d",&escolha);
+
+    for(i =0; i<n;i++){
+        if(codigo == cli[i].codigo){
+            if(escolha == 1){
+                printf("Digite o novo codigo: \n");
+                scanf("%d",&cod);
+                cli[i].codigo = cod;
+            }
+
+            else if(escolha == 2){
+                printf("Digite o novo nome: \n");
+                setbuf(stdin,NULL);
+                fgets(nome,19,stdin);
+                strcpy(cli[i].nome, nome);
+            }
+
+            else if(escolha == 3){
+                printf("Digite o novo numero: \n");
+                scanf("%d",&fone);
+                cli[i].fone = fone;
+            }
+
+        }
+
+
+    }
+
+
+}
+void Recebimentosdata(Rec *rec, int n, Cli *cli){
+    setlocale(LC_ALL,"portuguese");
+
+    int i;
+    for(i=0;i<n;i++){
+        if(rec[i].DataVenc > 10021998 && rec[i].DataVenc < 10022022){
+            printf("\nNome: %s\nTelefone: %d\nValor: %2.f\n",cli[i].nome, cli[i].fone, rec[i].valor);
+            printf("*******************************************************\n");
+
+        }
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+    setlocale(LC_ALL,"portuguese");
+    Rec rec[2];
+    Cli cli[2];
+
+    LerCliente(cli,2);
+    LerRecebimentos(rec,2);
+    Incluirrecebimentos(rec, cli, 2);
+    Altereocadastrodeclientes(cli,2);
+    Recebimentosdata(rec,2,cli);
+
+    return 0;
+
+
+}

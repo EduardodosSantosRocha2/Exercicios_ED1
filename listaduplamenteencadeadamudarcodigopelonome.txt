@@ -1,0 +1,155 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no
+{
+    char nome[30];
+    int dados;
+    struct no *anterior;
+    struct no *proximo;
+} noptr;
+
+void insere_lista(noptr **inifunc, noptr *novo, int valor){
+    char nome [30];
+    setbuf(stdin, NULL);
+    printf("Digite o nome: ");
+    fgets(novo->nome, 30, stdin);
+
+    novo->dados = valor;
+    novo->anterior = NULL;
+    if(*inifunc == NULL){
+        novo->proximo = NULL;
+    }
+    else{
+        novo->proximo = *inifunc;
+        (*inifunc)->anterior = novo;
+    }
+    *inifunc = novo;
+}
+
+void remove_lista(noptr **inifunc){
+    noptr *p;
+
+    if(*inifunc== NULL){
+        printf("\nLista vazia\n");
+        return;
+    }
+    else{
+        p = *inifunc;
+        printf("O nome e: %s e seu valor removido :%d\n",p->nome ,p->dados);
+        *inifunc = p->proximo;
+        (*inifunc)->anterior = NULL;
+        free(p);
+    }
+
+
+}
+
+void lista_todos(noptr *inifunc){
+    if(inifunc == NULL){
+        printf("\nLista vazia!!!");
+        return;
+    }
+    noptr *p;
+    p = inifunc;
+
+    while(p){
+        printf("Nome: %s\nSaida: %d\n",p->nome,p->dados);
+        printf("--------------------------------------\n");
+        p = p->proximo;
+
+    }
+    printf("\n");
+}
+
+
+void trocarvalor(noptr *inifunc){
+    int cont1=0, cont2=0;
+    char nome1[30];
+    char nome2[30];
+    char s1[30];
+    char s2[30];
+    noptr *v1;
+    noptr *v2;
+    noptr *aux;
+
+    setbuf(stdin, NULL);
+    printf("Digite o primeiro nome: ");
+    fgets(nome1,29,stdin);
+
+    setbuf(stdin, NULL);
+    printf("Digite o segundo nome: ");
+    fgets(nome2,29,stdin);
+
+    strcpy(s1, nome1);
+    strcpy(s2, nome2);
+
+    v1 = inifunc;
+    v2 = inifunc;
+
+
+
+
+    while(strcmp(v1->nome, s1)!=0 && v1->proximo!=NULL){
+         v1 = v1->proximo;
+
+    }
+
+    while( strcmp(v2->nome, s2)!=0 && v2->proximo!=NULL){
+         v2 = v2->proximo;
+    }
+
+
+
+    aux = v2->dados;
+    v2->dados = v1->dados;
+    v1->dados = aux;
+
+}
+
+
+
+
+int main()
+{
+    int recebe = 1, ops;
+    noptr *inicio;
+    inicio = NULL;
+    noptr *info;
+
+    while(recebe!=0)
+    {
+        info = (struct no*) malloc(sizeof(noptr));
+        if(!info)
+        {
+            printf("\nSem Memoria!!!");
+            return;
+        }
+
+        printf("Digite um valor: ");
+        scanf("%d", &recebe);
+
+
+
+        if (recebe!=0)
+        {
+            insere_lista(&inicio,info, recebe);
+        }
+    }
+
+    do
+    {
+        printf("Digite (1)Listar valores ou (2)Trocar valores\n");
+        scanf("%d",&ops);
+        if(ops==1)
+        {
+            lista_todos(inicio);
+        }
+        if(ops==2)
+        {
+            trocarvalor(inicio);
+        }
+    }while(ops!=0);
+
+    return 0;
+}

@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define max 5
+
+typedef struct{
+    int item[max];
+    int inicio, fim;
+}Fila;
+
+void inicia(Fila *f){
+    f->inicio =  f->fim = 0;
+}
+
+int insere(Fila *f, int X){
+    if(f->fim ==max){
+        return 0;
+ }
+
+    else{
+        f->item[f->fim] = X;
+        f->fim++;
+        return 1;
+
+    }
+}
+
+
+
+//int Remove(Fila *f, int *X){
+   // if(f->inicio == f->fim){
+   //     return 0;
+   // }
+   // else{
+    //   *X = (f->item[f->inicio]);
+   //     f->inicio++;
+   //     return 1;
+   // }
+
+//}
+
+// melhorado
+
+int Remove(Fila *f, int *X){
+   int i;
+   if(f->inicio == f->fim){
+       return 0;
+    }
+    else{
+       *X = (f->item[f->inicio]);
+       for(int i=0; i<max -1; i++){
+            f->item[i] = f->item[i+1];
+       }
+
+       f->fim--;
+       return 1;
+    }
+
+}
+
+
+
+int main(){
+
+    Fila f1;
+    int i, retorno,valor;
+
+    system("cls");
+    inicia(&f1);
+
+    for(i=0; i<max; i++){
+        printf("Digite um numero inteiro: ");
+        scanf("%d", &valor);
+        retorno = insere(&f1, valor);
+        if(retorno == 1){
+            printf("Dado inserido!!!\n");
+        }
+        else{
+            printf("Fila esta cheia!!!\n");
+        }
+
+    }
+
+     for(i=0; i<max; i++){
+        retorno = Remove(&f1, &valor);
+        if(retorno ==1){
+            printf("\nRemovido: %d", valor);
+        }
+        else{
+            printf("\nFila esta vazia");
+        }
+
+
+     }
+
+    getch();
+}

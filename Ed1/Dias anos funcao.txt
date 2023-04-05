@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int dia;
+int mes;
+int ano;
+
+void Mes(){
+char vetmes[11][50] = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro" , "dezembro"};
+
+
+
+printf("%d de %s de %d", dia,vetmes[mes],ano);
+}
+
+
+
+void main()
+
+{
+    printf("Digite o dia: ");
+    scanf("%d",&dia);
+    printf("Digite o mes: ");
+    scanf("%d",&mes);
+    printf("Digite o ano: ");
+    scanf("%d",&ano);
+    Mes();
+}

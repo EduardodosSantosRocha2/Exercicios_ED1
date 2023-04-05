@@ -1,0 +1,114 @@
+
+
+
+public class Pessoas {
+    //Atributos
+    private String nome;
+    private String ano;
+    private String telefone;
+    private String cpf;
+    
+    public Pessoas(String cpf, String nome, String ano, String telefone){
+        this.ano = ano;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.nome = nome;
+    
+    }
+   
+    public void printar(){
+        System.out.printf("Seu cpf é %s/nSeu nome é %s/nSeu ano é %s/n Seu telefone é %s", cpf, nome, ano, telefone);
+    }
+    
+    public boolean verificaIgualdade(String str, int opcao){
+        if (opcao == 1){
+            if(str.compareTo(cpf)== 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        
+        }
+        
+        if (opcao == 2){
+           if(str.compareTo(nome)== 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        
+        }
+           
+       return true;
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+___________________________________________________________________
+
+
+import java.util.Scanner;
+
+
+public class TestePessoas {
+    public static void main(String[] args) {
+       String cpf, nome, ano, telefone;
+       Scanner ler  = new Scanner(System.in);
+       int i = 0;
+       int escolha = 0;
+       
+       Pessoas p1[] = new Pessoas[10];    
+       
+       System.out.println("Digite quantos usuarios voce quer cadastrar: ");
+       escolha = ler.nextInt();
+       
+       
+       for(i = 0;i<escolha;i++){
+           
+           System.out.println("Digite o cpf: ");
+           cpf = ler.nextLine();
+           ler.nextLine();
+           System.out.println("Digite o nome: ");
+           nome  = ler.nextLine();
+           
+           System.out.println("Digite o ano: ");
+           ano = ler.nextLine();
+           
+           System.out.println("Digite o telefone: ");
+           telefone = ler.nextLine();
+           
+           p1[i] = new Pessoas(cpf, nome, ano, telefone);
+       }
+    
+    
+    
+    
+    
+    }
+}

@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no
+{
+    int dados;
+    struct no *prox;//guarda endereco do preocimo no
+} noptr;
+
+noptr *inicio;
+
+void insere_Lista(noptr *novo, int valor){
+    novo->dados = valor;
+    if(inicio == NULL){
+        novo->prox = NULL;
+    }
+    else{
+        novo->prox = inicio;
+    }
+    inicio = novo;
+
+}
+
+
+
+
+void lista_todos(){
+    if(inicio ==NULL){
+            printf("\nLista Vazia!!!");
+            return;
+
+    }
+    noptr *p;//p = auxiliar
+    p = inicio;
+
+    while(p){ // p!= null
+        printf("\nSaida: %d", p->dados);
+        p = p->prox;
+    }
+    printf("\n");
+}
+void remove_lista(){
+    noptr *p;
+    if(inicio == NULL){
+        printf("Lista vazia!!!");
+        return;
+    }
+    else{
+        while(inicio!=NULL){
+            p = inicio;
+            printf("\nValor removido: %d", p->dados);
+            inicio = p->prox;
+            free(p);
+
+        }
+    }
+
+
+}
+
+
+
+
+int main()
+{
+    int recebe = -1;
+    inicio = NULL;
+    noptr *info;//novo elemento que quer criar
+    do
+    {
+        printf("Digite um valor:");
+        scanf("%d", &recebe);
+        if(recebe!=0)
+        {
+            info = (struct no*) malloc(sizeof(noptr));
+            if(!info) // ou if(info == NULL)
+            {
+                printf("Sem memoria!");
+                return;
+            }
+            insere_Lista(info, recebe);
+        }
+    }while(recebe!=0);
+
+    lista_todos();
+    remove_lista();
+    lista_todos();
+}

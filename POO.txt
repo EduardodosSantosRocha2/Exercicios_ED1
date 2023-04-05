@@ -1,0 +1,87 @@
+package int_juros_simples;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Int_Juros_Simples extends JFrame {
+
+    private JPanel pTela = new JPanel(new GridLayout(0, 2, 20, 20));
+    private JLabel rotulos[] = new JLabel[4];
+    private JTextField camposTexto[] = new JTextField[4];
+    private JButton bCalcular = new JButton("Calcular");
+    private JButton bReniciar = new JButton("Reniciar");
+
+    public Int_Juros_Simples() {
+        super("Calcular Juro Simples");//chama a classe Jframe
+        this.setSize(320, 240);//Tamanho
+        setLocationRelativeTo(null);//Coloca a janela no meio
+        configurarPainel();
+        add(BorderLayout.CENTER, pTela);//coloca no centro
+        this.setVisible(true);//O usuario consegue ver ou nao
+    }
+
+    private void configurarPainel() {
+
+        rotulos[0] = new JLabel("Capital: ");
+        rotulos[1] = new JLabel("Taxa (%a.m.): ");
+        rotulos[2] = new JLabel("Tempo (em meses): ");
+        rotulos[3] = new JLabel("Juros: ");
+        bCalcular.setForeground(Color.GREEN);
+        bReniciar.setForeground(Color.MAGENTA);
+        for (int i = 0; i < 4; i++) {
+            camposTexto[i] = new JTextField(" ");//cria a caixa de texto editavel
+
+        }
+
+        for (int i = 0; i < 3; i++) {
+            pTela.add(rotulos[i]);
+            pTela.add(camposTexto[i]);
+        }
+        pTela.add(bReniciar);
+        pTela.add(bCalcular);
+        pTela.add(rotulos[3]);
+        pTela.add(camposTexto[3]);
+        camposTexto[3].setEditable(false);
+
+        bReniciar.addActionListener(new ActionListener(){
+
+           @Override
+            public void actionPerformed(ActionEvent e){
+                for(int i=0; i<4;i++){
+                    camposTexto[i].setText("");
+                }
+            }
+
+         });
+
+        bCalcular.addActionListener(new ActionListener(){
+            double []vet  = new double[3];
+            @Override
+            public void actionPerformed(ActionEvent e){
+                for(int i=0; i<3;i++){
+                    vet[i] = Double.parseDouble(camposTexto[i].getText());
+                }
+                double juros  = vet[0] *(vet[1]/100)*vet[2];
+                camposTexto[3].setText(""+juros);
+            }
+
+         });
+
+
+
+    }
+
+    public static void main(String[] args) {
+        Int_Juros_Simples janela = new Int_Juros_Simples();
+        janela.setDefaultCloseOperation(EXIT_ON_CLOSE);//FINALIZA O PROGRAMA
+    }
+
+}

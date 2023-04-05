@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct elemento
+{
+    struct no *prox;
+    int dados;
+} Elem;
+
+typedef struct cabeca{
+    struct elemento * inicio;
+    struct elemento *fim;
+} Fila;
+
+Fila *cria_fila()
+{
+    Fila * fi = (Fila *) malloc(sizeof(Fila));
+    if(fi != NULL)
+    {
+        fi->inicio = NULL;
+        fi->fim = NULL;
+    }
+    return fi;
+}
+
+int insere_fila(Fila *fi, int valor)
+{
+    Elem *novo;
+    if(fi == NULL)
+    {
+        return 0;
+    }
+    novo = (Elem *)malloc(sizeof(Elem));
+
+    if(novo == NULL)
+        return 0;
+
+    novo->dados = valor;
+    novo->prox = NULL;
+
+    if(fi->inicio == NULL)  //1- elemento da fila
+    {
+        fi->inicio = novo;
+    }
+    else
+    {
+        fi->fim->prox = novo;
+    }
+
+    fi -> fim  = novo;
+    return 1;
+
+}
+
+
+int tamanho_fila(Fila *fi)
+{
+    int cont = 0;
+    Elem *no;
+
+    if(fi == NULL)
+    {
+        return 0;
+    }
+    no  = fi->inicio;
+    while(no != NULL)
+    {
+        cont++;
+        no = no->prox;
+    }
+    return cont;
+}
+
+
+
+int main()
+{
+    Fila *f1, *f2, *f3;
+    int opcao, aux1, aux2, resp, resp2, valor, tam;
+    f1 = cria_fila();
+    if(f1 == NULL)
+    {
+        printf("Erro na criacao da fila 1");
+        return 0;
+    }
+
+
+    f2 = cria_fila();
+    if(f2 == NULL)
+    {
+        printf("Erro na criacao da fila 2");
+        return 0;
+    }
+
+    do
+    {
+        printf("[1]Inserir elemento na fila 1\n[2]inserir elemento na fila 2\n[3]Qual tamanho de fila voce deseja saber: \n");
+        scanf("%d", &opcao);
+        switch(opcao)
+        {
+        case 1:
+            printf("Digite o elemento: \n");
+            scanf("%d",&valor);
+            insere_fila(f1, valor);
+            break;
+        case 2:
+            printf("Digite o elemento: \n");
+            scanf("%d",&valor);
+            insere_fila(f2, valor);
+            break;
+        case 3:
+            printf("Fila (1) ou (2)\n");
+            scanf("%d", &opcao);
+              if(opcao == 1){
+                tam = tamanho_fila(f1);
+                printf("Tamanho: %d\n", tam);
+              }
+              else if(opcao == 2){
+                tam  = tamanho_fila(f2);
+                printf("Tamanho: %d\n", tam);
+              }
+
+        }
+    }
+    while(opcao!=0);
+
+
+}
+
+
+
+
+
+

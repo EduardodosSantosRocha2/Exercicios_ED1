@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no{
+    struct no *prox;
+}noptr;
+
+typedef struct cabeca{
+    
+    noptr * inicio;
+    noptr *fim;
+}fila;
+
+struct cliente {
+   char cod;
+   char nome[30]; 
+   int dados;
+};
+
+typedef struct no{
+    struct cliente Cliente;
+    struct no *prox;
+};
+
+
+int main()
+{
+    printf("Hello world!\n");
+    return 0;
+}

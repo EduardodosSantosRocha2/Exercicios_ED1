@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+typedef struct{
+    int code;
+    char sexo;
+    float numerodehoras;
+    float salariobruto;
+}reg;
+
+void Registro(reg *prof, int n){
+    int i;
+    float salarioliquido = 0;
+    for(i=0;i<n;i++){
+        printf("Digite o codigo da %d pessoa:\n",i+1);
+        scanf("%d",&prof[i].code);
+
+        printf("Digite o sexo da %d pessoa\n",i+1);
+        setbuf(stdin,NULL);
+        scanf("%c",&prof[i].sexo);
+
+
+        printf("Digite o numero de horas da %d pessoa\n",i+1);
+        scanf("%f",&prof[i].numerodehoras);
+
+        prof[i].salariobruto = prof[i].numerodehoras * 60,50;
+
+        setlocale (LC_ALL, "Portuguese_Brazil");
+
+    }
+     for(i=0;i<n;i++){
+        if(prof[i].sexo == 'm'&& prof[i].numerodehoras > 70){
+            salarioliquido = prof[i].salariobruto - (prof[i].salariobruto * 0.08) ;
+        }
+
+        else if(prof[i].sexo == 'm'&& prof[i].numerodehoras <= 70){
+            salarioliquido = prof[i].salariobruto - (prof[i].salariobruto * 0.10) ;
+        }
+
+
+        else if(prof[i].sexo == 'f'&& prof[i].numerodehoras <=70){
+            salarioliquido = prof[i].salariobruto - (prof[i].salariobruto * 0.07) ;
+        }
+
+
+        else if(prof[i].sexo == 'f'&& prof[i].numerodehoras > 70){
+            salarioliquido = prof[i].salariobruto - (prof[i].salariobruto * 0.05);
+        }
+
+
+
+
+
+
+
+        printf("*******************************************\n");
+        printf("O codigo do professor é: %d\n",prof[i].code);
+        printf("O numero de horas é: %2.f\n",prof[i].numerodehoras);
+        printf("O salario bruto é: %.2f\n",salarioliquido);
+
+
+
+
+
+
+    }
+
+
+}
+
+int main(){
+    int i;
+    reg professores[2];
+    Registro(professores, 2);
+
+
+
+
+}

@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct no{
+    int dados;
+    struct no *prox;
+} noptr;
+
+
+
+noptr *insere_Lista(noptr *novo, int valor, noptr *lista){
+    novo->dados = valor;
+    if(lista == NULL){
+        novo->prox = NULL;
+    }
+    else{
+        novo->prox = lista;
+    }
+    lista = novo;
+    return lista;
+}
+
+void imprime_lista(noptr *lista){
+    noptr *p;  //p = auxiliar //copia dos valores
+
+    if(lista == NULL){
+            printf("\nLista Vazia!!!");
+            return;
+    }
+
+    p = lista;
+    printf("\nLista:");
+    while(p){ // p!= null
+        printf("\nSaida: %d.......%x", p->dados, p);
+        p = p->prox;
+    }
+    printf("\n");
+}
+
+void edita(noptr *lista){
+    int escolha1,escolha2;
+
+    noptr *p1;
+    noptr *panterior;
+
+    noptr *panteriorvalor;
+    noptr *q1;
+
+    noptr *qanterior;
+    noptr *qanteriorvalor;
+
+    p1 = lista;
+    q1 = lista;
+    imprime_lista(lista);
+
+    printf("\nDigite o no de referencia presente na lista:\n");
+    scanf("%d", &escolha1);
+    printf("\nDigite o no de referencia presente na lista:\n");
+    scanf("%d", &escolha2);
+
+  while(p1->dados != escolha1){
+        p1 = p1->prox;
+        panterior = p1->prox;
+ }
+
+  while(q1->dados != escolha2){
+        q1 = q1->prox;
+        qanterior = q1->prox;
+    }
+    p1 = qanterior;
+    q1= panterior;
+
+    printf("p1: %d \n", p1->dados);
+    printf("q1: %d \n", q1->dados);
+
+
+
+
+    imprime_lista(lista);
+}
+
+
+
+int main(){
+    int num;
+    noptr *novo;
+    noptr *lista;
+    lista = NULL;
+
+    do{
+        novo = (struct no*) malloc(sizeof(noptr));//tipando
+        if(novo == NULL){
+            printf("Sem memoria!!!");
+            return 0;
+        }
+       printf("\nDigite os elementos da lista: \n");
+       scanf("%d", &num);
+
+       if(num !=0){
+        lista = insere_Lista(novo, num, lista);
+        }
+
+    }while(num!=0);
+
+
+    edita(lista);
+
+
+    return 0;
+}

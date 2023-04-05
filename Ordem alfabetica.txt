@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    
+    char nome1[4];
+    char nome2[4];
+    printf("Digite o nome!\n");
+    fgets(nome1, 4, stdin);
+    setbuf(stdin, NULL);
+    printf("Digite o nome!\n");
+    fgets(nome2, 4, stdin);
+     
+    int r;
+    r = strcmp(nome1, nome2);
+    if(r>0){
+        printf("Nome1 maior\n");
+    }
+    else if(r==0){
+        printf("Iguais\n");
+    }
+    else if(r < 0){
+        printf("Nome1 menor\n");
+    }
+    
+
+    return 0;
+}

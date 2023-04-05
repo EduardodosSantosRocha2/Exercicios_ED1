@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct{
+    int topo;
+    char dados[10];
+}Pilha;
+
+void empilha(char frase, Pilha *pilha){
+    if(pilha->topo == 9){
+        printf("Strack overflow");
+        return(-1);
+    }
+    else{
+
+         pilha->dados[++pilha->topo] = frase;
+
+    }
+}
+
+char desempilha(Pilha *pilha){
+    if(pilha->topo == -1){
+        printf("Strack underflow");
+    }
+    else{
+
+        return (pilha->dados[pilha->topo--]);
+
+    }
+
+
+}
+
+int main()
+{
+
+  Pilha pilha;
+  pilha.topo = -1;
+  int i;
+  char frase[50];
+  scanf("%s",&frase);
+
+  empilha(frase, &pilha);
+
+  printf("%s",desempilha(&pilha));
+
+
+}

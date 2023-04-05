@@ -1,0 +1,56 @@
+public class Fracao {
+    private int num;
+    private int dem;
+
+    public Fracao(){
+        this.num = 0;
+        this.dem = 1;    
+    } 
+    public Fracao(int num){
+        this.num = num;
+        this.dem = 1;
+    }
+    
+    public Fracao(int num , int dem){
+       this.num = num;
+       if(num > 0){ 
+        this.dem = dem;
+       }
+       else{
+           this.dem = 1;
+       }
+    }
+    
+    public Fracao calcularProduto(Fracao R){
+        Fracao resultado;
+        resultado = new Fracao(this.num *R.num, this.dem*R.dem);
+        return resultado;
+}
+    
+    public void mostreFracao(){
+        System.out.printf("%d/%d\n", num, dem);
+    }
+    
+        
+
+
+
+}
+
+
+
+
+__________________________________________________________________
+public class TesteFracao {
+    public static void main(String[] args){
+        Fracao r,s,t;
+        r = new Fracao(5,9);
+        s = new Fracao(3);
+        t = new Fracao();
+        t = r.calcularProduto(s);
+        r.mostreFracao();
+        t.mostreFracao();
+        
+    }
+
+}

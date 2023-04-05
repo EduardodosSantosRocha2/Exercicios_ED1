@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No{
+    int valor;
+    struct no *proximo;//ponteiro para um mesmo tipo de struct
+}No;
+ typedef struct{
+    No *inicio;
+    int tam;
+ }Lista;
+
+ void inserirInicio(Lista *lista, int valor){
+    No *novo = (No*)malloc(sizeof(No)); // colocando o (No*) o malloc vai retornar o endereco de memoria
+    novo->valor = valor; // a regiao de memoria no No esta apontando para valor e recebendo esse valor
+    novo->proximo = lista->inicio;
+    lista->inicio = novo; // esta apontando para um endereco do tipo novo
+    lista->tam++;
+
+
+ }
+
+void imprimirLista(Lista *lista){
+    No *inicio = lista->inicio;
+    printf("Lista de tamanho %d\n", lista->tam);
+    while(inicio != NULL){
+        printf("%d ", inicio->valor);
+        inicio = inicio->proximo;
+    }
+    printf("\n\n");
+}
+
+void remove_lista(Lista *lista)
+{
+    No *inicio = lista->inicio;
+    No *p;
+
+
+    while(inicio!=NULL)
+    {
+        p = inicio;
+        printf("\nValor removido: %d", p->valor);
+        inicio = p->proximo;
+        free(p);
+
+    }
+
+}
+
+
+int main()
+{
+
+    int opcao, valor;
+    Lista lista;
+    lista.inicio = NULL;
+    lista.tam = 0;
+
+    do
+    {
+        printf("\n1 Inserir:\n2 Imprimir:\n3 Remover:\n4 Sair:\n");
+        scanf("%d", &opcao);
+
+        switch(opcao)
+        {
+        case 1:
+            printf("Digite o valor: \n");
+            scanf("%d", &valor);
+            inserirInicio(&lista, valor);
+            break;
+
+        case 2:
+            imprimirLista(&lista);
+            break;
+        case 3:
+            remove_lista(&lista);
+            break;
+
+        default:
+            printf("Opcao invalida");
+        }
+    }
+    while(opcao !=4);
+
+
+
+    return 0;
+}

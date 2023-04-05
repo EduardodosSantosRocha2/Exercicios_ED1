@@ -1,0 +1,80 @@
+//atributos
+    String nome; 
+    String marca; 
+    int ano;
+    int vel;
+    int vol;
+    
+    //metodos
+    void acelerar(int aceleracao){
+        vel = vel + aceleracao;
+    }
+    void freiar (int reduzir){
+        vel = vel - reduzir;
+    }
+    
+    void buzinar(){
+        System.out.println("bibibibibibibi");
+    }
+    void volumedosom(int som){
+        vol = vol  + som;
+    }
+
+
+
+
+
+
+
+
+
+Carro c1 = new Carro();
+        c1.nome = "Uno";
+        c1.marca = "Fiat";
+        c1.vel = 60;
+        c1.ano = 2015;
+        c1.vol = 0;
+        
+        int escolha;
+        int km;
+        int vm;
+        
+        Scanner ler  = new Scanner(System.in);  
+        System.out.println("Digite 1 para acelerar ou Digite 2 para freiar: \n");
+        escolha  = ler.nextInt();  
+        
+        do {
+            if(escolha == 1 || escolha == 2){
+                break;
+            }
+            else {
+                System.out.println("Digite 1 para acelerar ou Digite 2 para freiar: \n");
+                escolha  = ler.nextInt();  
+            }
+                
+        
+        }while(escolha != 1 || escolha != 2);
+        
+        
+        
+        System.out.println("Qual velocidade: ");
+        km  = ler.nextInt();
+       
+        if (escolha  == 1){
+            c1.acelerar(km);
+            System.out.println(c1.vel);
+        }
+        
+        else if(escolha == 2) {
+             c1.freiar(km);
+             System.out.println(c1.vel);
+        }
+       
+        System.out.printf("O volume esta no %d, quanto voce deseja aumenta (O som vai ate o volume 10) \n",c1.vol);
+        vm = ler.nextInt();
+        
+        c1.volumedosom(vm);
+        System.out.printf("Novo volume  =  %d\n",c1.vol);
+        
+    
+    }

@@ -1,0 +1,217 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+typedef struct no
+{
+    int dado;
+    struct no *proximo;
+} noptr;
+
+
+noptr *cria_No()
+{
+    noptr *info;
+    info = (noptr*)malloc(sizeof(noptr));
+    return info;
+}
+
+
+void Inserel3(noptr **inicio3, int valor)
+{
+    noptr *novo3;
+    novo3 = cria_No();
+    novo3->dado = valor;
+    if(*inicio3 == NULL)
+    {
+        novo3->proximo = NULL;
+        *inicio3 = novo3;
+    }
+    else
+    {
+        novo3->proximo =*inicio3;
+        *inicio3 = novo3;
+    }
+}
+
+
+noptr *Inserel2(noptr *inicio2, int valor)
+{
+    noptr *novo2;
+    novo2 = cria_No();
+    novo2->dado = valor;
+    if(inicio2 == NULL)
+    {
+        novo2->proximo = NULL;
+        inicio2 = novo2;
+    }
+    else
+    {
+        novo2->proximo  =inicio2;
+        inicio2 = novo2;
+    }
+    return inicio2;
+}
+
+
+
+noptr *Insere(noptr *inicio1, int valor)
+{
+    noptr *novo;
+    novo = cria_No();
+    novo->dado = valor;
+    if(inicio1 == NULL)
+    {
+        novo->proximo = NULL;
+        inicio1 = novo;
+    }
+    else
+    {
+        novo->proximo  =inicio1;
+        inicio1 = novo;
+    }
+    return inicio1;
+}
+
+void Imprime(noptr *inicio1)
+{
+    noptr *p = inicio1;
+    if(inicio1 == NULL)
+    {
+        printf("Lista vazia!!!\n");
+        return;
+    }
+    while(p)
+    {
+        printf("[%d]", p->dado);
+        p = p->proximo;
+    }
+
+}
+int excluir(noptr **inicio1)
+{
+    int aux;
+    noptr *paux = *inicio1;
+    if(*inicio1 == NULL)
+    {
+        //printf("Lista vazia!!!\n");
+        return 0;
+    }
+    aux = paux->dado;
+    *inicio1 = paux->proximo;
+    free(paux);
+    return aux;
+}
+void insere_Final3(noptr **inicio3, int valor){
+    noptr *j;
+    noptr *novo_no;
+    novo_no = cria_No();
+    j = *inicio3;
+    novo_no->dado = valor;
+    while(j->proximo){
+        j = j->proximo;
+    }
+    j->proximo = novo_no;
+    novo_no->proximo = NULL;
+}
+
+void concatenar(noptr **inicio1, noptr **inicio2, noptr **inicio3){
+    int aux = 0, aux2 = 0;
+    aux = excluir(inicio1);
+    while(aux!=0){
+        Inserel3(inicio3,aux);
+        aux = excluir(inicio1);
+    }
+    aux2 = excluir(inicio2);
+    while(aux2!=0){
+        insere_Final3(inicio3,aux2);
+        aux2 = excluir(inicio2);
+    }
+}
+
+
+
+int main()
+{
+    noptr *inicio1;
+    inicio1 = NULL;
+    noptr *inicio2;
+    inicio2 = NULL;
+    noptr *inicio3;
+    inicio3 = NULL;
+
+    int resp, valor, escolha, rem;
+    do
+    {
+        printf("\n-----------------------------------\n");
+        printf("(0)Sair:\n(1)Inseir lista 1:\n(2)Inserir Lista 2:\n(3)Imprimir:\n(4)Excluir:\n(5)Concatenar\n");
+        printf("-----------------------------------\n");
+        scanf("%d",&resp);
+        switch(resp)
+        {
+        case 0:
+            exit;
+            break;
+
+        case 1:
+            do
+            {
+                printf("Digite o valor ou 0 para sair: \n");
+                scanf("%d",&valor);
+                if(valor!=0)
+                {
+                    inicio1 = Insere(inicio1, valor);
+                }
+            }
+            while(valor!=0);
+            break;
+
+        case 2:
+            valor = 1;
+            do
+            {
+                printf("Digite o valor ou 0 para sair: \n");
+                scanf("%d",&valor);
+                if(valor!=0)
+                {
+                    inicio2 = Insere(inicio2, valor);
+                }
+
+            }
+            while(valor!=0);
+            break;
+
+        case 3:
+            printf("Lista (1) ou (2) ou(3)\n");
+            scanf("%d",&escolha);
+            switch(escolha)
+            {
+            case 1:
+                Imprime(inicio1);
+                break;
+            case 2:
+                Imprime(inicio2);
+                break;
+            case 3:
+                Imprime(inicio3);
+                break;
+            }
+
+
+        case 4:
+            rem = excluir(&inicio1);
+            break;
+        case 5:
+            concatenar(&inicio1, &inicio2, &inicio3);
+            break;
+
+        default:
+            printf("Erro!\n");
+        }
+
+    }
+    while(resp!=0);
+
+    return 0;
+}

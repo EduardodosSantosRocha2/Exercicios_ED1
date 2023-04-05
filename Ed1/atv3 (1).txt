@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int calculo(){
+float media;
+
+
+} 
+
+
+
+
+int main()
+{
+    int i, n1, n2, n3;
+    char escolha[100];
+    printf("Nota do 1 aluno: ");
+    scanf("%d", n1);
+    printf("Nota do 2 aluno: ");
+    scanf("%d", n2);
+    printf("Nota do 3 aluno: ");
+    scanf("%d,",n3);
+    printf("Qual a sua escolha(a/p)")
+    scanf("%s", escolha)
+    n = calculo(n1, n2, n3);
+    printf("%d", n);
+
+}

@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no{
+    int dados;
+    struct no *prox;
+} noptr;
+
+
+
+noptr *insere_Lista(noptr *novo, int valor, noptr *lista){
+    novo->dados = valor;
+    if(lista == NULL){
+        novo->prox = NULL;
+    }
+    else{
+        novo->prox = lista;
+    }
+    lista = novo;
+    return lista;
+}
+
+void imprime_lista(noptr *lista){
+    noptr *p;  //p = auxiliar //copia dos valores
+
+    if(lista == NULL){
+            printf("\nLista Vazia!!!");
+            return;
+    }
+
+    p = lista;
+    printf("\nLista:");
+    while(p){ // p!= null
+        printf("\nSaida: %d", p->dados);
+        p = p->prox;
+    }
+    printf("\n");
+}
+
+void insere(noptr *novo, noptr *lista){
+    int escolha, novovalor;
+    noptr *p;
+    p = lista;
+    imprime_lista(lista);
+
+    printf("\nDigite o no de referencia presente na lista:\n");
+    scanf("%d", &escolha);
+
+
+    while(p->dados != escolha){
+        p = p->prox;
+    }
+
+
+    printf("\nDigite o novo elemento: \n");
+    scanf("%d",&novovalor);
+
+    novo->dados = novovalor;
+    novo->prox = p->prox;
+    p->prox = novo;
+
+    imprime_lista(lista);
+}
+
+
+
+int main(){
+    int num;
+    noptr *novo;
+    noptr *lista;
+    lista = NULL;
+
+
+    printf("\nDigite os elementos da lista: \n");
+    scanf("%d", &num);
+
+    while(num!=0){
+        novo = (struct no*) malloc(sizeof(noptr));//tipando
+        if(novo == NULL){
+            printf("Sem memoria!!!");
+            return 0;
+        }
+        printf("\nDigite os elementos da lista: \n");
+        scanf("%d", &num);
+        lista = insere_Lista(novo, num, lista);
+    }
+
+    novo = (struct no*) malloc(sizeof(noptr));
+    insere(novo, lista);
+
+    return 0;
+}

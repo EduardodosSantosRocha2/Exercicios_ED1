@@ -1,0 +1,81 @@
+public class Produto {
+    //Atributos
+    private int codigo;
+    private String nome;
+    private Float preco;
+    //Metodos
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Float getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Float preco) {
+        this.preco = preco;
+    }
+    
+    public void printar(Produto[] aux){
+        int i;
+        for(i=0; i< aux.length ; i++){
+            System.out.println(aux[i].getCodigo());
+        }
+    
+    }
+   public boolean testaValor(Produto[] aux, int cod,int elm){
+        int i;
+     for(i=0; i<elm;i++){   
+        if(cod == aux[i].getCodigo()){
+            return true;
+        }
+     }
+    return false;
+}
+  
+  
+    
+}
+
+______________________________________________________________________________________________________
+
+import java.util.Scanner;
+
+
+public class TesteProduto {
+    public static void main(String[] args) {
+       int i, cod, elm = 0;
+       Scanner Ler  = new Scanner(System.in);
+       Produto produto[] = new Produto[3];
+     
+       for(i=0; i<3;i++){
+           produto[i] = new Produto();
+           System.out.printf("Digite o codigo do %d produto: ", i+1);
+           cod = Ler.nextInt();         
+           produto[i].setCodigo(cod);
+           
+         
+           System.out.println(produto[i].testaValor(produto,cod , elm)); 
+           elm++;
+       }
+       
+    }
+       
+      
+    }   
+
+        
+  

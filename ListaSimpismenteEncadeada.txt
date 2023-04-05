@@ -1,0 +1,247 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct no{
+    int dado;
+    struct no *proximo;
+}noptr;
+
+
+noptr* cria_no(){
+    noptr *novo;
+    novo = (noptr*) malloc(sizeof(noptr));
+    return novo;
+}
+
+noptr* insere_lista(noptr *inicio, int valor){
+    noptr *novoNo = cria_no();
+    novoNo->dado = valor;
+    if(inicio == NULL){
+        novoNo->proximo = NULL;
+        inicio = novoNo;
+    }
+    else{
+        novoNo->proximo = inicio;
+        inicio = novoNo;
+    }
+  return inicio;
+}
+
+void imprimir(noptr *inicio){
+    noptr *aux = inicio;
+    if(inicio == NULL){
+        printf("Lista vazia!!!\n");
+    }
+
+    while(aux){
+       printf("[%d] ", aux->dado);
+       aux = aux->proximo;
+    }
+    printf("\n");
+
+}
+
+noptr* insere_no_meio(noptr *inicio, int valor, int valorbusca)
+{
+    noptr *p = inicio;
+    noptr *pAnt;
+    noptr *aux;
+
+    noptr *novoNo = cria_no();
+    novoNo->dado = valor;
+
+    if(inicio == NULL)
+    {
+        printf("Lista vazia!!!\n");
+    }
+
+   if(p->dado == valorbusca)
+   {
+        aux = p->proximo;
+        p->proximo = novoNo;
+        novoNo->proximo = aux;
+        return inicio;
+    }
+
+    else
+    {
+        while(p->dado!= valorbusca)
+        {
+            pAnt = p;
+            p = p->proximo;
+        }
+        pAnt->proximo = novoNo;
+        novoNo->proximo = p;
+        return inicio;
+    }
+
+
+}
+noptr *excluir_Lista(noptr *inicio){
+    noptr *p = inicio;
+    if(inicio == NULL){
+        printf("Lista Vazia!\n");
+        return;
+    }
+    inicio = p->proximo;
+    free(p);
+    return inicio;
+}
+
+
+noptr *insere_no_final(noptr *inicio, int valor){
+    noptr *novoNo = cria_no();
+    novoNo->dado = valor;
+    novoNo->dado = valor;
+  if(inicio == NULL){
+     novoNo->proximo = NULL;
+     inicio = novoNo;
+     return inicio;
+    }
+else{
+    noptr *aux1 = inicio;
+    while(aux1->proximo){
+        aux1 = aux1->proximo;
+    }
+    aux1->proximo = novoNo;
+    novoNo->proximo = NULL;
+
+    return inicio;
+ }
+}
+
+noptr *remove_Final(noptr *inicio)
+{
+    noptr *auxdelete = inicio;
+    noptr *ant;
+
+    if(inicio == NULL)
+    {
+        printf("Lista Vazia!!!\n");
+        return;
+    }
+    else if(inicio->proximo == NULL)
+    {
+        free(auxdelete);
+        inicio = NULL;
+        return inicio;
+    }
+    else
+    {
+
+        while(auxdelete->proximo)
+        {
+            ant = auxdelete;
+            auxdelete = auxdelete->proximo;
+        }
+        ant->proximo = NULL;
+        free(auxdelete);
+        return inicio;
+
+    }
+    return inicio;
+}
+
+
+noptr *exclui_Do_Meio(noptr *inicio, int valor){
+     noptr *antD;
+     noptr *aux2 = inicio;
+
+     if(inicio == NULL)
+    {
+        printf("Lista Vazia!!!\n");
+        return;
+    }
+    while(aux2->dado != valor){
+        antD = aux2;
+        aux2 = aux2->proximo;
+    }
+    antD->proximo = aux2->proximo;
+    free(aux2);
+    return inicio;
+
+
+
+return inicio;
+}
+
+
+
+
+
+
+int main()
+{
+    noptr *inicio;
+    inicio = NULL;
+    int valor = 1, escolha, valorBuscar;
+
+    do
+    {
+        printf("-_-_-_-_-_-_-_-_--_--_--_--_--_-\n");
+        printf("(0)Sair\n(1)Inserir No\n(2)Imprimir No\n(4)Inserir No No Meio\n(5)Excluir\n(6)Inserir No No Final\n(7)Excluir no final\n(8)Excluir do Meio\n");
+        printf("-_-_-_-_-_-_-_-_--_--_--_--_--_-\n");
+        printf("Digite a sua escolha: \n");
+        scanf("%d", &escolha);
+        switch(escolha)
+        {
+
+        case 0:
+            break;
+
+        case 1:
+            valor = 1;
+            while(valor !=0){
+                printf("Digite o valor ou 0 para sair: \n");
+                scanf("%d",&valor);
+                if(valor!=0)
+                    inicio = insere_lista(inicio, valor);
+            }
+            break;
+
+        case 2:
+            imprimir(inicio);
+            break;
+
+        case 4:
+            printf("Digite o valor do no: \n");
+            scanf("%d", &valor);
+            printf("Depois de qual no voce deseja adicionar?\n");
+            scanf("%d", &valorBuscar);
+            inicio = insere_no_meio(inicio, valor, valorBuscar);
+            break;
+        case 5:
+            inicio = excluir_Lista(inicio);
+            break;
+        case 6:
+             valor = 1;
+             while(valor !=0){
+                printf("Digite o valor ou 0 para sair: \n");
+                scanf("%d",&valor);
+                if(valor!=0)
+                     inicio = insere_no_final(inicio,valor);
+            }
+            break;
+
+        case 7:
+            inicio = remove_Final(inicio);
+            break;
+
+        case 8:
+            printf("Qual no voce deseja excluir?\n");
+            scanf("%d", &valorBuscar);
+            inicio = exclui_Do_Meio(inicio,valorBuscar);
+            break;
+
+        default:
+            printf("Erro!Digite novamente!!!");
+        }
+
+
+
+    }
+    while(escolha!=0);
+
+    return 0;
+}

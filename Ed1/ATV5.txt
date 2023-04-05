@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+int codigo;
+char nome[15];
+float preco;
+int quantidade;
+}Produtos;
+
+int main()
+{   int x = 5; 
+    int i;
+    int decrementoproduto;
+    int codigoproduto;
+    int restante = 0;
+    Produtos produtos[5];
+    for(i = 0; i<2; i++){
+        printf("Digite o codigo do %d produto: \n", i+1);
+        scanf("%d",&produtos[i].codigo);
+        printf("Digite a quantidade do %d produto: \n", i+1);
+        scanf("%d",&produtos[i].quantidade);
+        setbuf(stdin,NULL);
+        printf("Digite o nome do %d produto: \n", i+1);
+        fgets(produtos[i].nome,14,stdin);
+
+        printf("Digite o preco do %d produto: \n", i+1);
+        setbuf(stdin,NULL);
+        scanf("%f",&produtos[i].preco);
+    }
+       
+       
+       
+          
+        printf("Entre com o codigo do produto que deseja retirar: \n");
+        scanf("%d",&codigoproduto);
+        printf("Entre com quantos produto que deseja retirar: \n");
+        scanf("%d",&decrementoproduto);
+ 
+            
+            
+        
+        
+        
+
+
+        
+        
+        for(i = 0; i<2; i++){
+            if(codigoproduto == produtos[i].codigo){
+            restante = produtos[i].quantidade - decrementoproduto;
+            printf("O restante do produto %s e %d",produtos[i].nome, restante);
+            }
+        }
+
+
+}

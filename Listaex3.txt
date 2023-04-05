@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no{
+    int dados;
+    struct no *prox;
+} noptr;
+
+noptr *lista;
+
+void insere_Lista(noptr *novo, int valor){
+    novo->dados = valor;
+    if(lista == NULL){
+        novo->prox = NULL;
+    }
+    else{
+        novo->prox = lista;
+    }
+    lista = novo;
+
+}
+
+void imprime_lista(){
+    noptr *p;  //p = auxiliar //copia dos valores
+
+    if(lista ==NULL){
+            printf("\nLista Vazia!!!");
+            return;
+    }
+
+    p = lista;
+    printf("\nLista:");
+    while(p){ // p!= null
+        printf("\nSaida: %d", p->dados);
+        p = p->prox;
+    }
+    printf("\n");
+}
+
+void removeultimo(){
+    int aux;
+    noptr *p1 = lista;
+    noptr *p2 = lista->prox;
+
+    if(p1->prox == NULL){
+        lista = NULL;   
+	free(p1);            
+    }
+    else{
+        while(p2->prox != NULL){
+            p1 = p2;
+            p2 = p2->prox;
+        }
+        printf("Remove: %d\n", p2->dados);
+        p1->prox = NULL;
+	free(p2);
+    }
+}
+
+
+
+int main(){
+    int num;
+    noptr *novo;
+    lista = NULL;
+
+    printf("\nDigite os elementos da lista: \n");
+    scanf("%d", &num);
+
+    while(num!=0){
+        novo = (struct no*) malloc(sizeof(noptr));//tipando
+        if(novo == NULL){
+            printf("Sem memoria!!!");
+            return 0;
+        }
+        insere_Lista(novo, num);
+        printf("\nDigite os elementos da lista: \n");
+        scanf("%d", &num);
+    }
+    imprime_lista();
+    removeultimo();
+    return 0;
+}
